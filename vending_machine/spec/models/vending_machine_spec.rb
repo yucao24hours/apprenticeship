@@ -12,5 +12,11 @@ RSpec.describe 'VendingMachine', type: :model do
 
       expect(vending_machine.summary).to eq(610)
     end
+
+    it "それぞれの金種につき 1 個より多く入れようとすると例外になること" do
+      money = Money.new(100)
+      vending_machine.input(money)
+      expect{ vending_machine.input(money) }.to raise_error
+    end
   end
 end
