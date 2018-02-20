@@ -5,7 +5,7 @@ RSpec.describe 'VendingMachine', type: :model do
   let(:vending_machine) { VendingMachine.new }
 
   describe "#input" do
-    it "複数回の投入金を受け付けることができ、その総計が取得できる" do
+    it "複数回の投入金を受け付けることができ、その総計が取得できること" do
       vending_machine.input(Money.new(100))
       vending_machine.input(Money.new(10))
       vending_machine.input(Money.new(500))
