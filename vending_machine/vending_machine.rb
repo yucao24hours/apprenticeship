@@ -27,6 +27,13 @@ class VendingMachine
     @insertion_count[money.amount] += 1
   end
 
+  def refund
+    summary = @summary
+    @summary = 0
+
+    summary
+  end
+
   private
 
   def reach_max_insertion?(amount)
