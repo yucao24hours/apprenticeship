@@ -8,7 +8,11 @@ while true do
   amount = gets.chomp.to_i
   break if amount.zero?
 
-  vending_machine.input(Money.new(amount))
+  if Money.acceptable_amount?(amount)
+    vending_machine.input(Money.new(amount))
+  else
+    # そのまま返金
+  end
 
   puts "Total: #{vending_machine.summary}"
 end
