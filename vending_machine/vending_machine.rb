@@ -5,8 +5,8 @@ class VendingMachine
     @summary = 0
   end
 
-  def input(money)
-    @summary = @summary + money.amount
+  def input(amount)
+    @summary += amount
   end
 
   def refund
