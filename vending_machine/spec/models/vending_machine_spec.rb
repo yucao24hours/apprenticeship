@@ -15,16 +15,11 @@ RSpec.describe 'VendingMachine', type: :model do
       end
     end
 
-      it "想定外の金種を投入されたら、投入総計には加算しないこと" do
     context "受付できない金種を投入されたとき" do
+      it "投入総計には加算しないこと" do
         vending_machine.input(1)
-        expect(vending_machine.summary).to eq(0)
-
-        vending_machine.input(5)
-        expect(vending_machine.summary).to eq(0)
-
-        vending_machine.input(10_000)
-        expect(vending_machine.summary).to eq(0)
+        vending_machine.input(10)
+        expect(vending_machine.summary).to eq(10)
       end
     end
   end
