@@ -9,8 +9,9 @@ RSpec.describe 'VendingMachine', type: :model do
       vending_machine.input(Money.new(100))
       vending_machine.input(Money.new(10))
       vending_machine.input(Money.new(500))
+      vending_machine.input(Money.new(10))
 
-      expect(vending_machine.summary).to eq(610)
+      expect(vending_machine.summary).to eq(620)
     end
   end
 
