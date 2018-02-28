@@ -23,6 +23,8 @@ RSpec.describe 'VendingMachine', type: :model do
 
     it "投入金額の総計を出力して、投入総計をゼロにする" do
       expect(vending_machine.refund).to eq 1_600
+
+      expect(vending_machine.summary).to eq 0
     end
   end
 end
