@@ -6,12 +6,11 @@ class VendingMachine
   attr_reader :summary, :stocks
 
   def initialize
-    colas = []
+    @stocks = []
     5.times do
-      colas << Drink.new(name: "コーラ", price: 120)
+      @stocks << Drink.new(name: "コーラ", price: 120)
     end
 
-    @stocks = colas
     @summary = 0
   end
 
