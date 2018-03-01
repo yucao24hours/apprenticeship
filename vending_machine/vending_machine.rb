@@ -36,6 +36,9 @@ class VendingMachine
     # {'cola' => 3, 'orange_juice' => 12}
     # と思ったが、そうなると、Drink のオブジェクトは格納する必要がなくなる？？？？
     # でも値段とかは保持してないとだめだと思うので,,,。
+    # => Drink オブジェクトをキーにするといいかもしれない。
+    # cola = Drink.new(name: 'cola', price: 120)
+    # {cola => 3}
     (@summary >= drink.price) && (@stocks[:cola] > 0)
   end
 end
