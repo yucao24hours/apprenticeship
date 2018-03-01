@@ -62,4 +62,11 @@ RSpec.describe 'VendingMachine', type: :model do
       expect(vending_machine.return_change(5)).to eq 5
     end
   end
+
+  describe "#can_buy?", focus: true do
+    it "投入金額、在庫の点で、任意ののみものが購入できるかどうかを取得できる" do
+      cola = Drink.new(name: "コーラ", price: 120)
+      expect(vending_machine.can_buy?(cola)).to be true
+    end
+  end
 end
