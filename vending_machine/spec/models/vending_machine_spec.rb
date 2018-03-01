@@ -64,9 +64,27 @@ RSpec.describe 'VendingMachine', type: :model do
   end
 
   describe "#can_buy?", focus: true do
-    it "投入金額、在庫の点で、任意ののみものが購入できるかどうかを取得できる" do
+
+    it "任意ののみものを購入するのに、在庫・投入金額が十分な場合は true を返す" do
+      vending_machine.input(100)
+      vending_machine.input(10)
+      vending_machine.input(10)
+
       cola = Drink.new(name: "コーラ", price: 120)
       expect(vending_machine.can_buy?(cola)).to be true
     end
+
+    it "任意ののみものを購入するのに、在庫は十分だが投入金額が不十分な場合は false を返す" do
+      vending_machine.input(100)
+      vending_machine.input(10)
+
+      cola = Drink.new(name: "コーラ", price: 120)
+      expect(vending_machine.can_buy?(cola)).to be false
+    end
+
+    # it "任意ののみものを購入するのに、投入金額は十分だが在庫が不十分な場合は false を返す" do
+    #   cola = Drink.new(name: "コーラ", price: 120)
+    #   expect(vending_machine.can_buy?(cola)).to be false
+    # end
   end
 end

@@ -32,6 +32,6 @@ class VendingMachine
   end
 
   def can_buy?(drink)
-    true
+    @summary >= drink.price
   end
 end
