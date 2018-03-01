@@ -30,4 +30,8 @@ class VendingMachine
   def return_change(money)
     return money
   end
+
+  def can_buy?(drink)
+    true
+  end
 end
