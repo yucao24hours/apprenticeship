@@ -75,15 +75,25 @@ RSpec.describe 'VendingMachine', type: :model do
     end
 
     it "任意ののみものを購入するのに、在庫は十分だが投入金額が不十分な場合は false を返す" do
+      cola = Drink.new(name: "コーラ", price: 120)
+
       vending_machine.input(100)
       vending_machine.input(10)
 
-      cola = Drink.new(name: "コーラ", price: 120)
       expect(vending_machine.can_buy?(cola)).to be false
     end
 
     # it "任意ののみものを購入するのに、投入金額は十分だが在庫が不十分な場合は false を返す" do
     #   cola = Drink.new(name: "コーラ", price: 120)
+    #   # vending_machine.add_stock(drink) とか
+    #   # vending_machine.reduce_stock(drink, number) とか外からやれるようにしたほうがいいのかなー
+    #   # add のほうは、initialize からロジックを剥がすのに使えそうだけど、reduce のほうは完全に実装都合な気もする。。
+    #   # しかしそういうとき、このケースのテストはどう書くといいのだろうか
+
+    #   vending_machine.input(100)
+    #   vending_machine.input(10)
+    #   vending_machine.input(10)
+
     #   expect(vending_machine.can_buy?(cola)).to be false
     # end
   end
