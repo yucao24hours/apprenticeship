@@ -3,6 +3,19 @@ require_relative "../../vending_machine.rb"
 RSpec.describe 'VendingMachine', type: :model do
   let(:vending_machine) { VendingMachine.new }
 
+  describe "#add_stock" do
+    it "在庫を追加できる" do
+      expect(vending_machine.stocks.count).to eq 5
+
+      drink = Drink.new(name: "コーラ", price: 120)
+      vending_machine.add_stock(drink)
+      vending_machine.add_stock(drink)
+      vending_machine.add_stock(drink)
+
+      expect(vending_machine.stocks.count).to eq 8
+    end
+  end
+
   describe "#input" do
     it "初期状態で、コーラ（120円/本）を 5 本格納している" do
       expect(vending_machine.stocks.count).to eq 5

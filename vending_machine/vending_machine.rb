@@ -8,7 +8,7 @@ class VendingMachine
   def initialize
     @stocks = []
     5.times do
-      @stocks << Drink.new(name: "コーラ", price: 120)
+      add_stock(Drink.new(name: "コーラ", price: 120))
     end
 
     @summary = 0
@@ -40,5 +40,9 @@ class VendingMachine
     # cola = Drink.new(name: 'cola', price: 120)
     # {cola => 3}
     (@summary >= drink.price) && (@stocks.select{|stock| stock.name == drink.name }.count > 0)
+  end
+
+  def add_stock(drink)
+    @stocks << drink
   end
 end
