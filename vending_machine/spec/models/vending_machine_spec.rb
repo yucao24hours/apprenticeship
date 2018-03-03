@@ -76,7 +76,7 @@ RSpec.describe 'VendingMachine', type: :model do
     end
   end
 
-  describe "#can_buy?", focus: true do
+  describe "#can_buy?" do
 
     it "任意ののみものを購入するのに、在庫・投入金額が十分な場合は true を返す" do
       vending_machine.input(100)
