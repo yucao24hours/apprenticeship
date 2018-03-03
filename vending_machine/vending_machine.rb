@@ -39,6 +39,6 @@ class VendingMachine
     # => Drink オブジェクトをキーにするといいかもしれない。
     # cola = Drink.new(name: 'cola', price: 120)
     # {cola => 3}
-    (@summary >= drink.price) && (@stocks[:cola] > 0)
+    (@summary >= drink.price) && (@stocks.select{|stock| stock.name == drink.name }.count > 0)
   end
 end
