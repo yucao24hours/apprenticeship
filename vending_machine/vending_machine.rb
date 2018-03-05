@@ -3,7 +3,7 @@ require_relative "./drink"
 class VendingMachine
   ACCEPTABLE_MONEY = [10, 50, 100, 500, 1_000]
 
-  attr_reader :summary, :stocks
+  attr_reader :summary, :amount
 
   def initialize
     @stocks = []
@@ -12,6 +12,10 @@ class VendingMachine
     end
 
     @summary = 0
+  end
+
+  def grouped_stocks
+
   end
 
   def input(money)

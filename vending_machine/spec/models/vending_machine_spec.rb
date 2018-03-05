@@ -3,6 +3,12 @@ require_relative "../../vending_machine.rb"
 RSpec.describe 'VendingMachine', type: :model do
   let(:vending_machine) { VendingMachine.new }
 
+  describe "#grouped_stocks" do
+    it "商品の種類ごとに個数が取得できる" do
+
+    end
+  end
+
   describe "#add_stock" do
     it "在庫を追加できる" do
       expect(vending_machine.stocks.count).to eq 5
