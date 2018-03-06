@@ -5,7 +5,12 @@ RSpec.describe 'VendingMachine', type: :model do
 
   describe "#grouped_stocks" do
     it "商品の種類ごとに個数が取得できる" do
+      expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
 
+      drink = Drink.new(name: "オレンジジュース", price: 150)
+      vending_machine.add_stock(drink)
+
+      expect(vending_machine.grouped_stocks['オレンジジュース'].count).to eq 1
     end
   end
 

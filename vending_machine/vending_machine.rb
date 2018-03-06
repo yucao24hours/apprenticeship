@@ -15,7 +15,7 @@ class VendingMachine
   end
 
   def grouped_stocks
-
+    @stocks.group_by{|item| item.name }
   end
 
   def input(money)
