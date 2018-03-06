@@ -36,14 +36,7 @@ class VendingMachine
   end
 
   def can_buy?(drink)
-    # ここで @stocks にはハッシュ形式で個数を取得できたほうが便利そう
-    # {'cola' => 3, 'orange_juice' => 12}
-    # と思ったが、そうなると、Drink のオブジェクトは格納する必要がなくなる？？？？
-    # でも値段とかは保持してないとだめだと思うので,,,。
-    # => Drink オブジェクトをキーにするといいかもしれない。
-    # cola = Drink.new(name: 'cola', price: 120)
-    # {cola => 3}
-    (@summary >= drink.price) && (@stocks.select{|stock| stock.name == drink.name }.count > 0)
+    (@summary >= drink.price) && (grouped_stocks[drink.name].count > 0)
   end
 
   def add_stock(drink)
