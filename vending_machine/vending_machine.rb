@@ -3,6 +3,9 @@ require_relative "./drink"
 class VendingMachine
   ACCEPTABLE_MONEY = [10, 50, 100, 500, 1_000]
 
+  # amount: 売上
+  # summary: 投入合計金額
+  # stocks: 在庫一覧
   attr_reader :summary, :stocks, :amount
 
   def initialize
@@ -11,6 +14,9 @@ class VendingMachine
       add_stock(Drink.new(name: "コーラ", price: 120))
     end
 
+    # 売上累計金額
+    @amount = 0
+    # 投入累計金額
     @summary = 0
   end
 
@@ -41,5 +47,10 @@ class VendingMachine
 
   def add_stock(drink)
     @stocks << drink
+  end
+
+  def sell(drink)
+    @stocks.reject! {|stock| stock.name == drink.name }
+    @amount += drink.price
   end
 end

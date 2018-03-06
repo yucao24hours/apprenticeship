@@ -121,4 +121,18 @@ RSpec.describe 'VendingMachine', type: :model do
     #   expect(vending_machine.can_buy?(cola)).to be false
     # end
   end
+
+  describe "#sell" do
+    let!(:drink) { Drink.new(name: "コーラ", price: 120) }
+
+    it "在庫を減らし、売上金額を減らす" do
+      expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+      expect(vending_machine.amount).to eq 0
+
+      # vending_machine.sell(drink)
+
+      # expect(vending_machine.grouped_stocks['コーラ'].count).to eq 4
+      # expect(vending_machine.amount).to eq 120
+    end
+  end
 end
