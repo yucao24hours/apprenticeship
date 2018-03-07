@@ -52,15 +52,18 @@ RSpec.describe 'VendingMachine', type: :model do
         vending_machine.input(100)
         vending_machine.input(10)
         vending_machine.input(500)
-        vending_machine.input(10)
+        vending_machine.input(1_000)
 
-        expect(vending_machine.summary).to eq(620)
+        expect(vending_machine.summary).to eq(1_610)
       end
     end
 
     context "受付できない金種を投入されたとき" do
       it "投入総計には加算しないこと" do
         vending_machine.input(1)
+        vending_machine.input(5)
+        vending_machine.input(5_000)
+        vending_machine.input(10_000)
         vending_machine.input(10)
         expect(vending_machine.summary).to eq(10)
       end
