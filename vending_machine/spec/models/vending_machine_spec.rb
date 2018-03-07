@@ -77,10 +77,22 @@ RSpec.describe 'VendingMachine', type: :model do
       vending_machine.input(1000)
     end
 
-    it "投入金額の総計を出力して、投入総計をゼロにする" do
-      expect(vending_machine.refund).to eq 1_600
+    context "飲み物の購入前" do
+      it "現在の投入金額を出力して、投入総計をゼロにする" do
+        expect(vending_machine.refund).to eq 1_600
 
-      expect(vending_machine.summary).to eq 0
+        expect(vending_machine.summary).to eq 0
+      end
+    end
+
+    context "飲み物の購入後" do
+      it "現在の投入金額からジュース購入金額を引いた釣り銭を出力して、投入総計をゼロにする" do
+        drink = Drink.new(name: "コーラ", price: 120)
+        vending_machine.sell(drink)
+
+        expect(vending_machine.refund).to eq 1_480
+        expect(vending_machine.summary).to eq 0
+      end
     end
   end
 
@@ -91,7 +103,6 @@ RSpec.describe 'VendingMachine', type: :model do
   end
 
   describe "#can_buy?" do
-
     it "任意ののみものを購入するのに、在庫・投入金額が十分な場合は true を返す" do
       vending_machine.input(100)
       vending_machine.input(10)

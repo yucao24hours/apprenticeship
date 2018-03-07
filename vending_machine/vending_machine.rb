@@ -56,6 +56,7 @@ class VendingMachine
       index = @stocks.find_index{|stock| stock.name == drink.name }
       sold = @stocks.delete_at(index)
       @amount += sold.price
+      @summary -= sold.price
     end
   end
 end
