@@ -52,8 +52,10 @@ class VendingMachine
   def sell(drink)
     # XXX 二段階で処理してるのでなんか微妙だけど、いい方法が他にあるのだろうか
     # XXX 在庫がなかったときの処理はまだ書いていない
-    index = @stocks.find_index{|stock| stock.name == drink.name }
-    sold = @stocks.delete_at(index)
-    @amount += sold.price
+    if can_buy?(drink)
+      index = @stocks.find_index{|stock| stock.name == drink.name }
+      sold = @stocks.delete_at(index)
+      @amount += sold.price
+    end
   end
 end
