@@ -50,7 +50,10 @@ class VendingMachine
   end
 
   def sell(drink)
-    @stocks.reject! {|stock| stock.name == drink.name }
-    @amount += drink.price
+    # XXX 二段階で処理してるのでなんか微妙だけど、いい方法が他にあるのだろうか
+    # XXX 在庫がなかったときの処理はまだ書いていない
+    index = @stocks.find_index{|stock| stock.name == drink.name }
+    sold = @stocks.delete_at(index)
+    @amount += sold.price
   end
 end

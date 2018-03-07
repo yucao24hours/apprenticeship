@@ -132,10 +132,10 @@ RSpec.describe 'VendingMachine', type: :model do
       expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
       expect(vending_machine.amount).to eq 0
 
-      # vending_machine.sell(drink)
+      vending_machine.sell(drink)
 
-      # expect(vending_machine.grouped_stocks['コーラ'].count).to eq 4
-      # expect(vending_machine.amount).to eq 120
+      expect(vending_machine.grouped_stocks['コーラ'].count).to eq 4
+      expect(vending_machine.amount).to eq 120
     end
   end
 end
