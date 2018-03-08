@@ -8,10 +8,11 @@ class VendingMachine
   # stocks: 在庫一覧
   attr_reader :summary, :stocks, :amount
 
-  def initialize
+  def initialize(drinks)
     @stocks = []
-    5.times do
-      add_stock(Drink.new(name: "コーラ", price: 120))
+
+    drinks.each do |drink|
+      add_stock(drink)
     end
 
     # 売上累計金額
