@@ -9,14 +9,14 @@ RSpec.describe 'VendingMachine', type: :model do
     VendingMachine.new(drinks)
   end
 
-  describe "#grouped_stocks" do
-    it "商品の種類ごとに個数が取得できる" do
-      expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+  describe "#stocks_find_by_name" do
+    it "指定された商品の個数が取得できる" do
+      expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
 
       drink = Drink.new(name: "オレンジジュース", price: 150)
       vending_machine.add_stock(drink)
 
-      expect(vending_machine.grouped_stocks['オレンジジュース'].count).to eq 1
+      expect(vending_machine.stocks_find_by_name('オレンジジュース').count).to eq 1
     end
   end
 
@@ -106,12 +106,12 @@ RSpec.describe 'VendingMachine', type: :model do
       end
 
       it "在庫を減らし、売上金額を減らす" do
-        expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+        expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
         expect(vending_machine.amount).to eq 0
 
         vending_machine.sell(drink)
 
-        expect(vending_machine.grouped_stocks['コーラ'].count).to eq 4
+        expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 4
         expect(vending_machine.amount).to eq 120
       end
     end
@@ -126,12 +126,12 @@ RSpec.describe 'VendingMachine', type: :model do
         end
 
         it "在庫数も売上金額も変化しない" do
-          expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+          expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
           expect(vending_machine.amount).to eq 0
 
           expect(vending_machine.sell(cola)).to be nil
 
-          expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+          expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
           expect(vending_machine.amount).to eq 0
         end
       end
@@ -141,11 +141,13 @@ RSpec.describe 'VendingMachine', type: :model do
           vending_machine.input(1_000)
         end
 
-        it "在庫数も売上金額も変化しない", focus: true do
+        it "在庫数も売上金額も変化しない" do
+          expect(vending_machine.stocks_find_by_name('オレンジジュース').count).to eq 0
           expect(vending_machine.amount).to eq 0
 
           expect(vending_machine.sell(orange_juice)).to be nil
 
+          expect(vending_machine.stocks_find_by_name('オレンジジュース').count).to eq 0
           expect(vending_machine.amount).to eq 0
         end
       end
