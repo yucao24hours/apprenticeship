@@ -22,6 +22,7 @@ class VendingMachine
   end
 
   def grouped_stocks
+    # XXX 在庫にない商品の個数を聞かれたときに、nil ではなく 0 を返すようにしないと、そもそも can_buy? も成り立たない！！
     @stocks.group_by{|item| item.name }
   end
 
@@ -38,10 +39,6 @@ class VendingMachine
     @summary = 0
 
     summary
-  end
-
-  def can_buy?(drink)
-    (@summary >= drink.price) && (grouped_stocks[drink.name].count > 0)
   end
 
   def add_stock(drink)
@@ -63,5 +60,9 @@ class VendingMachine
 
   def return_change(money)
     return money
+  end
+
+  def can_buy?(drink)
+    (@summary >= drink.price) && (grouped_stocks[drink.name].count > 0)
   end
 end

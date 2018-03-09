@@ -96,55 +96,59 @@ RSpec.describe 'VendingMachine', type: :model do
     end
   end
 
-  describe "#can_buy?" do
-    it "任意ののみものを購入するのに、在庫・投入金額が十分な場合は true を返す" do
-      vending_machine.input(100)
-      vending_machine.input(10)
-      vending_machine.input(10)
-
-      cola = Drink.new(name: "コーラ", price: 120)
-      expect(vending_machine.can_buy?(cola)).to be true
-    end
-
-    it "任意ののみものを購入するのに、在庫は十分だが投入金額が不十分な場合は false を返す" do
-      cola = Drink.new(name: "コーラ", price: 120)
-
-      vending_machine.input(100)
-      vending_machine.input(10)
-
-      expect(vending_machine.can_buy?(cola)).to be false
-    end
-
-    # it "任意ののみものを購入するのに、投入金額は十分だが在庫が不十分な場合は false を返す" do
-    #   cola = Drink.new(name: "コーラ", price: 120)
-    #   # vending_machine.add_stock(drink) とか
-    #   # vending_machine.reduce_stock(drink, number) とか外からやれるようにしたほうがいいのかなー
-    #   # add のほうは、initialize からロジックを剥がすのに使えそうだけど、reduce のほうは完全に実装都合な気もする。。
-    #   # しかしそういうとき、このケースのテストはどう書くといいのだろうか
-
-    #   vending_machine.input(100)
-    #   vending_machine.input(10)
-    #   vending_machine.input(10)
-
-    #   expect(vending_machine.can_buy?(cola)).to be false
-    # end
-  end
 
   describe "#sell" do
-    let!(:drink) { Drink.new(name: "コーラ", price: 120) }
+    context "購入したい商品に対し、在庫も投入金額も十分な場合" do
+      let!(:drink) { Drink.new(name: "コーラ", price: 120) }
 
-    before do
-      vending_machine.input(1000)
+      before do
+        vending_machine.input(1000)
+      end
+
+      it "在庫を減らし、売上金額を減らす" do
+        expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+        expect(vending_machine.amount).to eq 0
+
+        vending_machine.sell(drink)
+
+        expect(vending_machine.grouped_stocks['コーラ'].count).to eq 4
+        expect(vending_machine.amount).to eq 120
+      end
     end
 
-    it "在庫を減らし、売上金額を減らす" do
-      expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
-      expect(vending_machine.amount).to eq 0
+    context "購入したい商品に対し、条件が不十分な場合" do
+      let!(:cola) { Drink.new(name: "コーラ", price: 120) }
+      let!(:orange_juice) { Drink.new(name: "オレンジジュース", price: 150) }
 
-      vending_machine.sell(drink)
+      context "在庫は十分だが、投入金額が不十分な場合" do
+        before do
+          vending_machine.input(100)
+        end
 
-      expect(vending_machine.grouped_stocks['コーラ'].count).to eq 4
-      expect(vending_machine.amount).to eq 120
+        it "在庫数も売上金額も変化しない" do
+          expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+          expect(vending_machine.amount).to eq 0
+
+          expect(vending_machine.sell(cola)).to be nil
+
+          expect(vending_machine.grouped_stocks['コーラ'].count).to eq 5
+          expect(vending_machine.amount).to eq 0
+        end
+      end
+
+      context "投入金額は十分だが、在庫が不十分な場合" do
+        before do
+          vending_machine.input(1_000)
+        end
+
+        it "在庫数も売上金額も変化しない", focus: true do
+          expect(vending_machine.amount).to eq 0
+
+          expect(vending_machine.sell(orange_juice)).to be nil
+
+          expect(vending_machine.amount).to eq 0
+        end
+      end
     end
   end
 end
