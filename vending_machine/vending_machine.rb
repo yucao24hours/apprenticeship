@@ -26,9 +26,11 @@ class VendingMachine
   end
 
   def input(money)
-    return_change(money) and return unless ACCEPTABLE_MONEY.include?(money)
-
-    @summary += money
+    if ACCEPTABLE_MONEY.include?(money)
+      @summary += money
+    else
+      return_change(money)
+    end
   end
 
   def refund
@@ -36,10 +38,6 @@ class VendingMachine
     @summary = 0
 
     summary
-  end
-
-  def return_change(money)
-    return money
   end
 
   def can_buy?(drink)
@@ -59,5 +57,11 @@ class VendingMachine
       @amount += sold.price
       @summary -= sold.price
     end
+  end
+
+  private
+
+  def return_change(money)
+    return money
   end
 end
