@@ -1,0 +1,18 @@
+require_relative "./organism"
+require_relative "./individual"
+require_relative "./manager_factory"
+require_relative "./managers/organism_manager"
+
+task default: %w(organism:create)
+
+namespace :organism do
+  task :create do
+    manager = ManagerFactory.create_manager(:organism)
+    manager.create!
+  end
+
+  task :update do
+    manager = ManagerFactory.create_manager(:organism)
+    manager.update!
+  end
+end
