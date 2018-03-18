@@ -1,9 +1,7 @@
 class IndividualManager
-  def create!
-    puts "IndividualManager#create! called."
-  end
-
-  def update!
-    puts "IndividualManager#update! called."
+  class << self
+    def process!
+      puts "IndividualManager.process! called"
+    end
   end
 end

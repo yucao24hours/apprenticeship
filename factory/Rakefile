@@ -1,18 +1,15 @@
 require_relative "./organism"
 require_relative "./individual"
-require_relative "./manager_factory"
 require_relative "./managers/organism_manager"
+require_relative "./managers/individual_manager"
 
-task default: %w(organism:create)
+task default: %w(org_and_idv:process)
 
-namespace :organism do
-  task :create do
-    manager = ManagerFactory.create_manager(:organism)
-    manager.create!
-  end
-
-  task :update do
-    manager = ManagerFactory.create_manager(:organism)
-    manager.update!
+namespace :org_and_idv do
+  task :process do
+    OrganismManager.process!
+    IndividualManager.process!
+    # MainPictureManager.process!
+    # IndividualPictureManager.process!
   end
 end
