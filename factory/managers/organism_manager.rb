@@ -1,5 +1,6 @@
 require "pry"
 require "csv"
+
 require_relative "../organism"
 
 class OrganismManager
