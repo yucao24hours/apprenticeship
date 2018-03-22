@@ -96,7 +96,6 @@ RSpec.describe 'VendingMachine', type: :model do
     end
   end
 
-
   describe "#sell" do
     context "購入したい商品に対し、在庫も投入金額も十分な場合" do
       let!(:drink) { Drink.new(name: "コーラ", price: 120) }
@@ -109,7 +108,7 @@ RSpec.describe 'VendingMachine', type: :model do
         expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
         expect(vending_machine.amount).to eq 0
 
-        vending_machine.sell(drink)
+        vending_machine.sell("コーラ")
 
         expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 4
         expect(vending_machine.amount).to eq 120
@@ -129,7 +128,7 @@ RSpec.describe 'VendingMachine', type: :model do
           expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
           expect(vending_machine.amount).to eq 0
 
-          expect(vending_machine.sell(cola)).to be nil
+          expect(vending_machine.sell("コーラ")).to be nil
 
           expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
           expect(vending_machine.amount).to eq 0
