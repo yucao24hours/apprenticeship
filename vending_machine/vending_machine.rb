@@ -1,4 +1,5 @@
 require_relative "./drink"
+require "pry"
 
 class VendingMachine
   ACCEPTABLE_MONEY = [10, 50, 100, 500, 1_000]
@@ -44,11 +45,11 @@ class VendingMachine
     @stocks << drink
   end
 
-  def sell(drink)
+  def sell(drink_name)
     # XXX 二段階で処理してるのでなんか微妙だけど、いい方法が他にあるのだろうか
     # XXX 在庫がなかったときの処理はまだ書いていない
-    if can_buy?(drink)
-      index = @stocks.find_index{|stock| stock.name == drink.name }
+    if can_buy?(drink_name)
+      index = @stocks.find_index{|stock| stock.name == drink_name }
       sold = @stocks.delete_at(index)
       @amount += sold.price
       @summary -= sold.price
@@ -61,7 +62,10 @@ class VendingMachine
     return money
   end
 
-  def can_buy?(drink)
+  def can_buy?(drink_name)
+    drink = @stocks.detect{|stock| stock.name == drink_name }
+    return false unless drink
+
     (@summary >= drink.price) && (stocks_find_by_name(drink.name).count > 0)
   end
 end

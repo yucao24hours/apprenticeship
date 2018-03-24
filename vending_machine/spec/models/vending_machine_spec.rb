@@ -96,7 +96,6 @@ RSpec.describe 'VendingMachine', type: :model do
     end
   end
 
-
   describe "#sell" do
     context "購入したい商品に対し、在庫も投入金額も十分な場合" do
       let!(:drink) { Drink.new(name: "コーラ", price: 120) }
@@ -106,12 +105,12 @@ RSpec.describe 'VendingMachine', type: :model do
       end
 
       it "在庫を減らし、売上金額を減らす" do
-        expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
+        expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
         expect(vending_machine.amount).to eq 0
 
-        vending_machine.sell(drink)
+        vending_machine.sell("コーラ")
 
-        expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 4
+        expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 4
         expect(vending_machine.amount).to eq 120
       end
     end
@@ -126,12 +125,12 @@ RSpec.describe 'VendingMachine', type: :model do
         end
 
         it "在庫数も売上金額も変化しない" do
-          expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
+          expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
           expect(vending_machine.amount).to eq 0
 
-          expect(vending_machine.sell(cola)).to be nil
+          expect(vending_machine.sell("コーラ")).to be nil
 
-          expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
+          expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
           expect(vending_machine.amount).to eq 0
         end
       end
@@ -142,12 +141,12 @@ RSpec.describe 'VendingMachine', type: :model do
         end
 
         it "在庫数も売上金額も変化しない" do
-          expect(vending_machine.stocks_find_by_name('オレンジジュース').count).to eq 0
+          expect(vending_machine.stocks_find_by_name("オレンジジュース").count).to eq 0
           expect(vending_machine.amount).to eq 0
 
           expect(vending_machine.sell(orange_juice)).to be nil
 
-          expect(vending_machine.stocks_find_by_name('オレンジジュース').count).to eq 0
+          expect(vending_machine.stocks_find_by_name("オレンジジュース").count).to eq 0
           expect(vending_machine.amount).to eq 0
         end
       end
