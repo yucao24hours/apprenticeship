@@ -37,19 +37,24 @@ RSpec.describe "VendingMachine", type: :model do
       context "複数の種類の飲み物" do
         let(:drinks) do
           [
-            Drink.new(name: "ホットコーヒー", price: 120),
-            Drink.new(name: "はちみつレモン", price: 150),
-            Drink.new(name: "サイダー", price: 110),
-            Drink.new(name: "はちみつレモン", price: 150)
+            Drink.new(name: "レッドブル", price: 200),
+            Drink.new(name: "レッドブル", price: 200),
+            Drink.new(name: "水", price: 100),
+            Drink.new(name: "水", price: 100),
+            Drink.new(name: "レッドブル", price: 200),
+            Drink.new(name: "水", price: 100),
+            Drink.new(name: "レッドブル", price: 200),
+            Drink.new(name: "レッドブル", price: 200),
+            Drink.new(name: "水", price: 100),
+            Drink.new(name: "水", price: 100)
           ]
         end
 
         it "在庫を追加できる" do
           vending_machine.add_stocks(drinks)
 
-          expect(vending_machine.stocks_find_by_name("ホットコーヒー").count).to eq 1
-          expect(vending_machine.stocks_find_by_name("はちみつレモン").count).to eq 2
-          expect(vending_machine.stocks_find_by_name("サイダー").count).to eq 1
+          expect(vending_machine.stocks_find_by_name("レッドブル").count).to eq 5
+          expect(vending_machine.stocks_find_by_name("水").count).to eq 5
         end
       end
     end
