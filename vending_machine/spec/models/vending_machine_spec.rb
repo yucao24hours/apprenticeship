@@ -20,16 +20,33 @@ RSpec.describe 'VendingMachine', type: :model do
     end
   end
 
-  describe "#add_stock" do
-    it "在庫を追加できる" do
-      expect(vending_machine.stocks.count).to eq 5
+  describe "#add_stock", focus: true do
+    describe "在庫の追加" do
+      context "ひとつの種類の飲み物" do
+        it "在庫を追加できる" do
+          expect(vending_machine.stocks.count).to eq 5
 
-      drink = Drink.new(name: "コーラ", price: 120)
-      vending_machine.add_stock(drink)
-      vending_machine.add_stock(drink)
-      vending_machine.add_stock(drink)
+          drink = Drink.new(name: "コーラ", price: 120)
+          vending_machine.add_stock(drink)
+          vending_machine.add_stock(drink)
+          vending_machine.add_stock(drink)
 
-      expect(vending_machine.stocks.count).to eq 8
+          expect(vending_machine.stocks.count).to eq 8
+        end
+      end
+
+      context "複数の種類の飲み物" do
+        it "在庫を追加できる" do
+          expect(vending_machine.stocks.count).to eq 5
+
+          drink = Drink.new(name: "コーラ", price: 120)
+          vending_machine.add_stock(drink)
+          vending_machine.add_stock(drink)
+          vending_machine.add_stock(drink)
+
+          expect(vending_machine.stocks.count).to eq 8
+        end
+      end
     end
   end
 
