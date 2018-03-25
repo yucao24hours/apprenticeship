@@ -12,9 +12,7 @@ class VendingMachine
   def initialize(drinks)
     @stocks = []
 
-    drinks.each do |drink|
-      add_stock(drink)
-    end
+    add_stock(drinks)
 
     # 売上累計金額
     @amount = 0
@@ -41,8 +39,8 @@ class VendingMachine
     summary
   end
 
-  def add_stock(drink)
-    @stocks << drink
+  def add_stock(drinks)
+    @stocks.concat(drinks)
   end
 
   def sell(drink_name)
