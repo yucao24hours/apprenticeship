@@ -1,6 +1,6 @@
 require_relative "../../vending_machine.rb"
 
-RSpec.describe 'VendingMachine', type: :model do
+RSpec.describe "VendingMachine", type: :model do
   let(:vending_machine) do
     drinks = []
     5.times do
@@ -11,12 +11,12 @@ RSpec.describe 'VendingMachine', type: :model do
 
   describe "#stocks_find_by_name" do
     it "指定された商品の個数が取得できる" do
-      expect(vending_machine.stocks_find_by_name('コーラ').count).to eq 5
+      expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 5
 
       drink = Drink.new(name: "オレンジジュース", price: 150)
       vending_machine.add_stocks([drink])
 
-      expect(vending_machine.stocks_find_by_name('オレンジジュース').count).to eq 1
+      expect(vending_machine.stocks_find_by_name("オレンジジュース").count).to eq 1
     end
   end
 
