@@ -28,11 +28,11 @@ RSpec.describe 'VendingMachine', type: :model do
 
           drinks = []
           3.times do
-            drinks << Drink.new(name: "コーラ", price: 120)
+            drinks << Drink.new(name: "ホットコーヒー", price: 120)
           end
           vending_machine.add_stocks(drinks)
 
-          expect(vending_machine.stocks.count).to eq 8
+          expect(vending_machine.stocks_find_by_name("ホットコーヒー").count).to eq 3
         end
       end
 
