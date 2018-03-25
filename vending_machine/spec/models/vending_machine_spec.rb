@@ -24,8 +24,6 @@ RSpec.describe 'VendingMachine', type: :model do
     describe "在庫の追加" do
       context "ひとつの種類の飲み物" do
         it "在庫を追加できる" do
-          expect(vending_machine.stocks.count).to eq 5
-
           drinks = []
           3.times do
             drinks << Drink.new(name: "ホットコーヒー", price: 120)
@@ -42,7 +40,7 @@ RSpec.describe 'VendingMachine', type: :model do
             Drink.new(name: "ホットコーヒー", price: 120),
             Drink.new(name: "はちみつレモン", price: 150),
             Drink.new(name: "サイダー", price: 110),
-            Drink.new(name: "はちみつレモン", price: 150),
+            Drink.new(name: "はちみつレモン", price: 150)
           ]
         end
 
