@@ -197,11 +197,11 @@ RSpec.describe "VendingMachine", type: :model do
 
     before do
       # XXX input って名前わかりづらいので変えたい、insert_money とかにしたい
-      vending_machine.input(1_000)
+      vending_machine.input(100)
     end
 
-    it '投入金額・在庫の観点で、購入可能な商品名の一覧が取得できること' do
-      expect(vending_machine.buyable_drinks).to match_array %w(オレンジジュース コーラ おいしい水)
+    it '在庫があり、かつ投入金額と同じかそれより安い商品の一覧が取得できること' do
+      expect(vending_machine.buyable_drinks).to match_array %w(おいしい水 オレンジジュース)
     end
   end
 end
