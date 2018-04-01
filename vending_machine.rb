@@ -54,6 +54,10 @@ class VendingMachine
     end
   end
 
+  def buyable_drinks
+    @stocks.map(&:name).uniq
+  end
+
   private
 
   def return_change(money)
