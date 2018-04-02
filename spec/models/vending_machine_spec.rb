@@ -179,4 +179,29 @@ RSpec.describe "VendingMachine", type: :model do
       end
     end
   end
+
+  describe '#buyable_drinks', focus: true do
+    let(:vending_machine) do
+      drinks = []
+      5.times do
+        drinks << Drink.new(name: 'オレンジジュース', price: 100)
+      end
+
+      2.times do
+        drinks << Drink.new(name: 'コーラ', price: 120)
+      end
+      drinks << Drink.new(name: 'おいしい水', price: 90)
+
+      VendingMachine.new(drinks)
+    end
+
+    before do
+      # XXX input って名前わかりづらいので変えたい、insert_money とかにしたい
+      vending_machine.input(100)
+    end
+
+    it '在庫があり、かつ投入金額と同じかそれより安い商品の一覧が取得できること' do
+      expect(vending_machine.buyable_drinks).to match_array %w(おいしい水 オレンジジュース)
+    end
+  end
 end
