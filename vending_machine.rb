@@ -56,15 +56,15 @@ class VendingMachine
 
   def buyable_drinks
     # 在庫があり、かつ投入金額 summary がその商品の価格と同じか上回っていれば出す
-    buyable_drinks = @stocks.each_with_object([]) do |stock, memo|
-      # XXX 複数の在庫がある場合、一度検証した飲み物に対しても
-      #     if 文が実行されてしまう。
-      #     購入可能かどうかにかかわらず、在庫一覧は用意したほうがいい。
+    @stocks.each_with_object([]) do |stock, memo|
+      # XXX include? で同じ飲み物に対して同じ処理を二度以上しないようにして急場をしのいでいるが、
+      #     本来なら、購入可能かどうかにかかわらず在庫一覧は用意したほうがいい。
+      next if memo.include?(stock.name)
+
       # NOTE: @stocks にあるのは在庫 1 つ以上ある商品なので、在庫の有無に関する
       #       条件文は明示的に書く必要はない。
-      memo << stock if @summary >= stock.price
+      memo << stock.name if @summary >= stock.price
     end
-    buyable_drinks.map(&:name).uniq
   end
 
   private
