@@ -180,7 +180,7 @@ RSpec.describe "VendingMachine", type: :model do
     end
   end
 
-  describe '#buyable_drinks', focus: true do
+  describe '#buyable_drinks' do
     let(:vending_machine) do
       drinks = []
       5.times do
