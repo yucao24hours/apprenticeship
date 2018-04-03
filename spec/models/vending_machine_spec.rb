@@ -128,7 +128,9 @@ RSpec.describe "VendingMachine", type: :model do
       let!(:drink) { Drink.new(name: "コーラ", price: 120) }
 
       before do
-        vending_machine.input(1000)
+        vending_machine.input(100)
+        vending_machine.input(10)
+        vending_machine.input(10)
       end
 
       it "在庫を減らし、売上金額を減らす" do
@@ -139,6 +141,10 @@ RSpec.describe "VendingMachine", type: :model do
 
         expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 4
         expect(vending_machine.amount).to eq 120
+      end
+
+      it "お釣りの金額が返される" do
+        expect(vending_machine.sell("コーラ")).to eq 0
       end
     end
 
