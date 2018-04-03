@@ -111,15 +111,6 @@ RSpec.describe "VendingMachine", type: :model do
         expect(vending_machine.refund).to eq 1_480
         expect(vending_machine.summary).to eq 0
       end
-
-      it "複数回購入しても、現在の投入金額からジュース購入金額を引いた釣り銭を出力して、投入総計をゼロにする" do
-        drink = Drink.new(name: "コーラ", price: 120)
-        vending_machine.sell(drink.name)
-        vending_machine.sell(drink.name)
-
-        expect(vending_machine.refund).to eq 1_360
-        expect(vending_machine.summary).to eq 0
-      end
     end
   end
 
