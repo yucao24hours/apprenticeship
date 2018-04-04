@@ -33,10 +33,10 @@ class VendingMachine
   end
 
   def refund
-    summary = @summary
+    change = @summary
     @summary = 0
 
-    summary
+    change
   end
 
   def add_stocks(drinks)
@@ -51,6 +51,8 @@ class VendingMachine
       sold = @stocks.delete_at(index)
       @amount += sold.price
       @summary -= sold.price
+
+      refund
     end
   end
 

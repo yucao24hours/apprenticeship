@@ -95,31 +95,10 @@ RSpec.describe "VendingMachine", type: :model do
       vending_machine.input(1000)
     end
 
-    context "飲み物の購入前" do
-      it "現在の投入金額を出力して、投入総計をゼロにする" do
-        expect(vending_machine.refund).to eq 1_600
+    it "現在の投入金額を出力して、投入総計をゼロにする" do
+      expect(vending_machine.refund).to eq 1_600
 
-        expect(vending_machine.summary).to eq 0
-      end
-    end
-
-    context "飲み物の購入後" do
-      it "現在の投入金額からジュース購入金額を引いた釣り銭を出力して、投入総計をゼロにする" do
-        drink = Drink.new(name: "コーラ", price: 120)
-        vending_machine.sell(drink.name)
-
-        expect(vending_machine.refund).to eq 1_480
-        expect(vending_machine.summary).to eq 0
-      end
-
-      it "複数回購入しても、現在の投入金額からジュース購入金額を引いた釣り銭を出力して、投入総計をゼロにする" do
-        drink = Drink.new(name: "コーラ", price: 120)
-        vending_machine.sell(drink.name)
-        vending_machine.sell(drink.name)
-
-        expect(vending_machine.refund).to eq 1_360
-        expect(vending_machine.summary).to eq 0
-      end
+      expect(vending_machine.summary).to eq 0
     end
   end
 
@@ -128,7 +107,9 @@ RSpec.describe "VendingMachine", type: :model do
       let!(:drink) { Drink.new(name: "コーラ", price: 120) }
 
       before do
-        vending_machine.input(1000)
+        vending_machine.input(100)
+        vending_machine.input(10)
+        vending_machine.input(10)
       end
 
       it "在庫を減らし、売上金額を減らす" do
@@ -139,6 +120,10 @@ RSpec.describe "VendingMachine", type: :model do
 
         expect(vending_machine.stocks_find_by_name("コーラ").count).to eq 4
         expect(vending_machine.amount).to eq 120
+      end
+
+      it "お釣りの金額が返される" do
+        expect(vending_machine.sell("コーラ")).to eq 0
       end
     end
 
