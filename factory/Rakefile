@@ -1,0 +1,15 @@
+require_relative "./organism"
+require_relative "./individual"
+require_relative "./managers/organism_manager"
+require_relative "./managers/individual_manager"
+
+task default: %w(org_and_idv:process)
+
+namespace :org_and_idv do
+  task :process do
+    OrganismManager.process!
+    IndividualManager.process!
+    # MainPictureManager.process!
+    # IndividualPictureManager.process!
+  end
+end
